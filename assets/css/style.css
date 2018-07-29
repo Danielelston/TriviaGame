@@ -1,0 +1,31 @@
+body{
+    background-color: #294069;
+}
+.cssBody {
+    background-color: #294069;
+}
+
+.game {
+    background-image: url(../media/background.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 500px;
+    max-height: 100%;
+    padding: 30px;
+    color: #ececec;
+    text-shadow: 2px 2px #294069;
+    /* width: 80%; */
+}
+
+.gameContent {
+    padding: 30px;
+    background-color: #55555570;
+    border-radius: 5px;
+}
+
+#question-timer {
+    padding: 30px;
+    background-color: #55555570;
+    border-radius: 5px;
+    text-align: center;
+}
