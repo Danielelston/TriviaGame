@@ -13,13 +13,16 @@ $(document).ready(function () {
 
     // TODO: make arrys into obj
 
-    var questionsArry = ["Who says wubadubadubdub?", 'What is "Schmeckle"?', "what is the name of Jerrys favorite Rick?", "What job does Beth have?"];
+    var questionsArry = ["Who says wubadubadubdub?", 'What is "Schmeckle"?', "what is the name of Jerrys favorite Rick?", "What job does Beth have?", "What dimension is original Rick from?", "How Rick is related to Morty?", "What does Wubaluba dub dub mean?"];
 
-    var answerArry = [["Morty", "Rick", "Mr.President", "Summer"], ["An alien informercial product", "Morty's favorite cerial", "A currency", "Only bird person knows"], ["Doofus", "Roofus", "Goofus", "Rick C-406"], ["Chef", "Horse Surgeon", "Novel Writer", "House wife"]];
+    var answerArry = [["Morty", "Rick", "Mr.President", "Summer"], ["An alien informercial product", "Morty's favorite cerial", "A currency", "Only bird person knows"], ["Doofus", "Roofus", "Goofus", "Rick C-406"], ["Chef", "Horse Surgeon", "Novel Writer", "House wife"], ["C-137", "C-129", "C-132", "C-126"], ["Morty's future self", "Morty's time traveling dad", "Morty's grandfather", "Morty's brother"], ["and thats how it's done", "Time to get lit fam", "I am in great pain, please help me", "It's just gibberish"]];
 
-    var correctAnswerArry = ["Rick", "A currency", "Doofus", "Horse Surgeon"];
+    var correctAnswerArry = ["Rick", "A currency", "Doofus", "Horse Surgeon", "C-137", "Morty's grandfather", "I am in great pain, please help me"];
 
     var countDown;
+
+    var resultRunning = false;
+
 
     $(".floatingHead").click(function startGame() {
 
@@ -119,56 +122,63 @@ $(document).ready(function () {
             var userChoice = $(this).text();
             stopTimer();
 
+            if(resultRunning === false){
+                if (userChoice === correctAnswerArry[questionCounter]) {
 
-            if (userChoice === correctAnswerArry[questionCounter]) {
+                    correctCounter++;
+                    questionCounter++;
+                    resultRunning = true;
 
-                correctCounter++
-                questionCounter++;
+                    $("#game-floatingHead").attr("style", "display: none;");
 
-                $("#game-floatingHead").attr("style", "display: none;");
+                    $("#resultVid").attr("style", "display: in-line;");
+                    $("#resultVid").attr("src", "assets/media/iLike.mp4");
 
-                $("#resultVid").attr("style", "display: in-line;");
-                $("#resultVid").attr("src", "assets/media/iLike.mp4");
+                    $("#resultVid")[0].play();
 
-                $("#resultVid")[0].play();
+                    setTimeout(function () {
 
-                setTimeout(function () {
-                    $("#resultVid").attr("src", "");
-                    $("#resultVid").attr("style", "display: none;");
+                        resultRunning = false;
+                        $("#resultVid").attr("src", "");
+                        $("#resultVid").attr("style", "display: none;");
 
-                    $("#game-floatingHead").attr("style", "display: in-line;")
+                        $("#game-floatingHead").attr("style", "display: in-line;")
 
-                    nextQuestion();
+                        nextQuestion();
 
-                }, 6000)
+                    }, 6000);
 
-            } else {
+                } else {
 
-                wrongCounter++
-                questionCounter++;
+                    wrongCounter++;
+                    questionCounter++;
+                    resultRunning = true;
 
-                $("#correctAnswer").text("the correct answer is: " + correctAnswerArry[questionCounter - 1])
+                    $("#correctAnswer").text("the correct answer is: " + correctAnswerArry[questionCounter - 1])
 
-                $("#resultVid").show;
-                $("#game-floatingHead").attr("style", "display: none;");
+                    $("#resultVid").show;
+                    $("#game-floatingHead").attr("style", "display: none;");
 
-                var myVideo = $("#resultVid");
-                $("#resultVid").attr("style", "display: in-line;");
-                $("#resultVid").attr("src", "assets/media/Disqualified.mp4");
+                    var myVideo = $("#resultVid");
+                    $("#resultVid").attr("style", "display: in-line;");
+                    $("#resultVid").attr("src", "assets/media/Disqualified.mp4");
 
-                $("#resultVid")[0].play();
+                    $("#resultVid")[0].play();
 
-                setTimeout(function () {
-                    $("#resultVid").attr("src", "");
-                    $("#resultVid").attr("style", "display: none;");
+                    setTimeout(function () {
 
-                    $("#game-floatingHead").attr("style", "display: in-line;")
+                        resultRunning = false;
+                        $("#resultVid").attr("src", "");
+                        $("#resultVid").attr("style", "display: none;");
 
-                    $("#correctAnswer").text("")
+                        $("#game-floatingHead").attr("style", "display: in-line;")
 
-                    nextQuestion();
-                }, 5000)
-            }
+                        $("#correctAnswer").text("")
+
+                        nextQuestion();
+                    }, 5000);
+                };
+            };
         });
 
         $("#restart").click(function () {
